@@ -4,7 +4,7 @@
 require "base64"
 
 Gem::Specification.new do |s|
-  s.name = "ItermRails (Go)"
+  s.name = "go"
   s.version = "0.0.1"
   s.authors = ["Florent Guilleux", "Alvaro Pereyra"]
   s.homepage = "http://github.com/xenda/iterm-rails"
