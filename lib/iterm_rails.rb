@@ -29,7 +29,7 @@ module ItermRails
     :launch_spork_for_rspec => false,
     :launch_spork_for_cuc   => false, 
     :rails3                 => false,
-    :prepend_command        => nil, # example: 'rvm ruby-1.9.2-head'
+    :prepend_command        => false, # example: 'rvm ruby-1.9.2-head'
   }
 
   def create_tab(project_path, *commands)
@@ -120,7 +120,7 @@ module ItermRails
     tabs.each do |tab|
       open_tab :new_tab do
         write "cd #{project_path}"
-        write config[:prepend_command] unless config[:prepend_command] == "nil" || config[:prepend_command].empty?
+        write config[:prepend_command] if config[:prepend_command]
         tab.commands.each { |command| write command }
         set_title "#{tab.title} - #{project_name}"
       end
