@@ -25,7 +25,7 @@ module ItermRails
   DEFAULT_CONFIG = {
     :projects_dir     => Dir.getwd,
     :prepend_command  => false, # example: 'rvm ruby-1.9.2-head'
-    :main             => "mate .; git st",
+#    :main             => "mate .; git st",
     :server           => "script/server -p {{port:3000}}",
     :console          => "script/console",    
     :spork_rspec      => "spork -p {{port:8989}}",
@@ -92,13 +92,14 @@ module ItermRails
     command_keys.each do |command_key|
       next if config["skip_#{command_key}".to_sym]
       puts "command key = #{command_key}"
-      open_tab :new_tab do
+      open_tab command_key do
         write "cd #{project_path}"        
         write config[:prepend_command] if config[:prepend_command]
         write ItermRails.substitute_port(config[command_key])
         set_title "#{command_key} - #{project_name}"
       end
     end
+    main.select if config[:main]
   end
 
 end
