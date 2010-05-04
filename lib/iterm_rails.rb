@@ -31,9 +31,9 @@ module ItermRails
     :spork_rspec      => "spork -p {{port:8989}}",
     :spork_cuc        => "spork cuc -p {{port:9989}}",    
   }
-  NON_COMMANDS = [:projects_dir, :prepend_command]
+  NON_COMMAND_KEYS = [:projects_dir, :prepend_command]
   
-  def find_available_port_from(port_number)
+  def self.find_available_port_from(port_number)
     result = port_number
     result += 1 while is_port_open?(result)
     result
@@ -44,7 +44,7 @@ module ItermRails
   end
 
   # from http://stackoverflow.com/questions/517219/ruby-see-if-a-port-is-open
-  def is_port_open?(port_number)
+  def self.is_port_open?(port_number)
     begin
       Timeout::timeout(1) do
         begin
@@ -68,6 +68,10 @@ module ItermRails
       config
     end
   end
+  
+  def self.substitute_port(string)
+    string.gsub!(/\{\{port:(\d+)\}\}/) { |match| find_available_port_from $1 }
+  end
 
   config = merge_configs DEFAULT_CONFIG, Pathname.new('~').expand_path.join('.iterm-rails.config')
 
@@ -84,13 +88,13 @@ module ItermRails
 
   ItermWindow.open do
     project_name = project_path.basename
-    commands = config.keys - NON_COMMANDS
-    commands.each do |command|
+    command_keys = config.keys - NON_COMMAND_KEYS
+    command_keys.each do |command_key|
       open_tab :new_tab do
         write "cd #{project_path}"        
         write config[:prepend_command] if config[:prepend_command]
-        write config[command]        
-        set_title "#{command} - #{project_name}"
+        write ItermRails.substitute_port(config[command_key])
+        set_title "#{command_key} - #{project_name}"
       end
     end
   end
