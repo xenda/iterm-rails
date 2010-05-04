@@ -28,8 +28,6 @@ module ItermRails
     :main             => "mate .; git st",
     :server           => "script/server -p {{port:3000}}",
     :console          => "script/console",    
-    :spork_rspec      => "spork -p {{port:8989}}",
-    :spork_cuc        => "spork cuc -p {{port:9989}}",    
   }
   NON_COMMAND_KEYS = [:projects_dir, :prepend_command]
   

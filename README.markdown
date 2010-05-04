@@ -40,8 +40,6 @@ You can write commands that will use the first available port from a given port 
           :main             => "mate .; git st",
           :server           => "script/server -p {{port:3000}}",
           :console          => "script/console",    
-          :spork_rspec      => "spork -p {{port:8989}}",
-          :spork_cuc        => "spork cuc -p {{port:9989}}",    
         }
 
 Author  
