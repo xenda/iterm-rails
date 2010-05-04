@@ -28,6 +28,10 @@ Any entry in the configuration file creates a new tab titled with the entry key 
 
 `:main` tab will get the focus.
 
+### specifying ports in commands
+
+You can write commands that will use the first available port from a given port number with the `{{port:initial_port_number}}` syntax. For example `script/server -p {{port:3000}}` will launch a server on the first available port from 3000. This allows you to launch iterm-rails for various projects that will automatically use different ports.
+
 ### default configuration:
 
         DEFAULT_CONFIG = {
