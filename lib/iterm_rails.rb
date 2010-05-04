@@ -70,7 +70,7 @@ module ItermRails
   end
   
   def self.substitute_port(string)
-    string.gsub!(/\{\{port:(\d+)\}\}/) { |match| find_available_port_from $1 }
+    string.gsub!(/\{\{port:(\d+)\}\}/) { |match| find_available_port_from $1.to_i }
   end
 
   config = merge_configs DEFAULT_CONFIG, Pathname.new('~').expand_path.join('.iterm-rails.config')
