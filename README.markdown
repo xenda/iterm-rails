@@ -1,7 +1,7 @@
 GO - Iterm-Rails
 ===================
 
-A script to launch commands in differents iTerm tabs for a Rails project: console, server, mate...
+A script to launch commands in different iTerm tabs for a Rails project: console, server, mate...
 inspired by http://github.com/chrisjpowers/iterm_window examples
 
 Examples:
@@ -9,29 +9,35 @@ Examples:
 
         iterm-rails /path/to/project
         
-        iterm-rails project # you can set a default project directory (see configuration options below)
+        iterm-rails project # you can set a default project directory (see :projects_dir configuration entry below)
 
 
 Configuration:
 --------------
-You can override default configuration options:
+You can override the default configuration:
 
-  - globally in ~/.iterm-rails.config
+  - globally in `~/.iterm-rails.config`
 
-  - per project in project/.iterm-rails.config
+  - per project in `project/.iterm-rails.config`
 
+Any entry in the configuration file creates a new tab titled with the entry key and executing the given command, except for the following special configuration entries:
 
-Configuration options in DEFAULT_CONFIG:
-----------------------------------------
+* `:projects_dir` defines the default project directory where Iterm-Rails looks for project directory when given a relative path
+* `:prepend_command` defines the first command to be executed in each tab, for example `:prepend_command  => 'rvm ruby-1.9.2-head'`
+* `:skip_{entry_key}` will skip the name entry command, for example `:skip_console => true` will prevent the launch of the corresponding `:console` tab
+
+`:main` tab will get the focus.
+
+### default configuration:
 
         DEFAULT_CONFIG = {
-          :projects_dir => Dir.getwd,
-          :launch_server => true,
-          :launch_console => true,
-          :launch_spork_for_rspec => false,
-          :launch_spork_for_cuc => false,
-          :rails3 => false,
-          :prepend_command => nil, # example: 'rvm ruby-1.9.2-head'
+          :projects_dir     => Dir.getwd,
+          :prepend_command  => false, # example: 'rvm ruby-1.9.2-head'
+          :main             => "mate .; git st",
+          :server           => "script/server -p {{port:3000}}",
+          :console          => "script/console",    
+          :spork_rspec      => "spork -p {{port:8989}}",
+          :spork_cuc        => "spork cuc -p {{port:9989}}",    
         }
 
 Author  
