@@ -25,7 +25,7 @@ module ItermRails
   DEFAULT_CONFIG = {
     :projects_dir     => Dir.getwd,
     :prepend_command  => false, # example: 'rvm ruby-1.9.2-head'
-#    :main             => "mate .; git st",
+    :main             => "mate .; git st",
     :server           => "script/server -p {{port:3000}}",
     :console          => "script/console",    
     :spork_rspec      => "spork -p {{port:8989}}",
