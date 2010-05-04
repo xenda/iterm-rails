@@ -88,8 +88,10 @@ module ItermRails
 
   ItermWindow.open do
     project_name = project_path.basename
-    command_keys = config.keys - NON_COMMAND_KEYS
+    command_keys = config.keys.reject { |key| key.to_s =~ /^skip_/ } - NON_COMMAND_KEYS
     command_keys.each do |command_key|
+      next if config["skip_#{command_key}".to_sym]
+      puts "command key = #{command_key}"
       open_tab :new_tab do
         write "cd #{project_path}"        
         write config[:prepend_command] if config[:prepend_command]
