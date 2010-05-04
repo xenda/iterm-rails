@@ -91,7 +91,6 @@ module ItermRails
     command_keys = config.keys.reject { |key| key.to_s =~ /^skip_/ } - NON_COMMAND_KEYS
     command_keys.each do |command_key|
       next if config["skip_#{command_key}".to_sym]
-      puts "command key = #{command_key}"
       open_tab command_key do
         write "cd #{project_path}"        
         write config[:prepend_command] if config[:prepend_command]
